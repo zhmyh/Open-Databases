@@ -1,0 +1,18 @@
+{
+    "PATHS" : {
+        "GATHERED" : "gathered",
+        "CHECKED" : "checked",
+        "PARSED" : "parsed"
+    },
+    "API_KEYS" : {
+        "SHODAN_API_KEY" : "#####",
+        "BE_API_KEY" : "#####"
+    },
+    "CUSTOM_SEARCH_QUERY" : {
+        "elastic"  : "port:9200 json",
+        "postgresql"  : "port:5432 PostgreSQL"
+    },
+    "LIMITS" : {
+        "be_page_limit" : 7
+    }
+}

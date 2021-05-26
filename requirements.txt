@@ -1,0 +1,9 @@
+elasticsearch>=7.0.0,<8.0.0
+pymongo
+couchdb
+pathlib
+cassandra-driver
+tqdm
+psycopg2
+mysql
+mysql-connector

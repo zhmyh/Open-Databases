@@ -1,0 +1,11 @@
+__pycache__/
+checked/
+parsed/
+gathered/
+shodan_scripts.txt
+config.json
+backup/
+check.py
+*pyc
+/.vscode
+debug.log
