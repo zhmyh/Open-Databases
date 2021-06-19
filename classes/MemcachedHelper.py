@@ -17,10 +17,12 @@ class MemcachedHelper:
         self._timeout = timeout
         self.api_client = Client((host, port), encoding="UTF-8")
 
-    def uescape_decode(self, m):
+    @staticmethod
+    def uescape_decode(m):
         return ""
 
-    def remove_control_characters(self, s):
+    @staticmethod
+    def remove_control_characters(s):
         return "".join(ch for ch in s if unicodedata.category(ch)[0]!="C")
 
     def check(self):
