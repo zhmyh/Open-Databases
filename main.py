@@ -80,7 +80,7 @@ def checkSingle(service, country):
 
 
 def process(function, services, countries):
-    threads = list()
+    threads = []
     for service in services:
         for country in countries:
             x = threading.Thread(target=function, args=(service, country))
