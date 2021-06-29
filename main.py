@@ -54,13 +54,12 @@ def parseSingle(service, country):
     srcFileName = f'{CONFIG["PATHS"]["CHECKED"]}/good/{service}_{country}.txt'
     with open(srcFileName, 'r') as src:
         lines = src.readlines()
-        outputhPath = '%s/%s/%s' % (CONFIG["PATHS"]
-                                    ["PARSED"], service, country)
-        for ip in tqdm(lines, desc='Parsing ' + srcFileName):
+        outputPath = f'{CONFIG["PATHS"]["PARSED"]}/{service}/{country}'
+        for ip in tqdm(lines, desc=f'Parsing {srcFileName}'):
             ip = ip.strip()
-            fileName = '%s.txt' % (ip.replace(":", "_"))
-            Path(outputhPath).mkdir(parents=True, exist_ok=True)
-            with open("%s/%s" % (outputhPath, fileName), 'w+', encoding="utf-8") as out:
+            fileName = f'{ip.replace(":", "_")}.txt'
+            Path(outputPath).mkdir(parents=True, exist_ok=True)
+            with open(f"{outputPath}/{fileName}", 'w+', encoding="utf-8") as out:
                 initiatedClass = CLASSES[service](ip)
                 initiatedClass.parse(out)
 
@@ -69,7 +68,7 @@ def checkSingle(service, country):
     srcFileName = f'{CONFIG["PATHS"]["GATHERED"]}/{service}_{country}.txt'
     with open(srcFileName, 'r') as src:
         lines = src.readlines()
-        for ip in tqdm(lines, desc='Checking ' + srcFileName):
+        for ip in tqdm(lines, desc=f'Checking {srcFileName}'):
             ip = ip.strip()
             initiatedClass = CLASSES[service](ip)
             response = initiatedClass.check()
@@ -96,16 +95,16 @@ def gatherResult(services):
         result[service] = {}
         for country in args.countries:
             result[service][country] = set()
-            customQuery = CONFIG["CUSTOM_SEARCH_QUERY"][service] if service in CONFIG["CUSTOM_SEARCH_QUERY"] else 'product:%s' % (
-                service)
-            for i in range(1, CONFIG["LIMITS"]["be_page_limit"]):
-                queryRes = BEClient.search(
-                    country, customQuery, page=i)['events']
-                if queryRes:
-                    result[service][country].update(
-                        ip['target']['ip'] for ip in queryRes)
-                else:
-                    break
+            if BEClient:
+                customQuery = CONFIG["CUSTOM_SEARCH_QUERY"][service] if service in CONFIG["CUSTOM_SEARCH_QUERY"] else f'product:{service}'
+                for i in range(1, CONFIG["LIMITS"]["be_page_limit"]):
+                    results = BEClient.search(
+                        country, customQuery, page=i)
+                    if results and results['events']:
+                        result[service][country].update(
+                            ip['target']['ip'] for ip in queryRes)
+                    else:
+                        break
             result[service][country].update(
                 ip['ip_str'] for ip in ShodanClient.search(country, customQuery))
             with open(f'{CONFIG["PATHS"]["GATHERED"]}/{service}_{country}.txt', 'w+', encoding='UTF-8') as out:
