@@ -34,7 +34,7 @@ You can contribute this project by making pull request to this project. After re
 
 ### TODO
 
-- [] Add more services
-- [] Make possible to gather data only from Shodan or BinaryEdge
-- [] Review requirements file
-- [] Standardize output from databases
+- [ ] Add more services
+- [ ] Make possible to gather data only from Shodan or BinaryEdge
+- [ ] Review requirements file
+- [ ] Standardize output from databases
