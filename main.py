@@ -102,7 +102,7 @@ def gatherResult(services):
                         country, customQuery, page=i)
                     if results and results['events']:
                         result[service][country].update(
-                            ip['target']['ip'] for ip in queryRes)
+                            ip['target']['ip'] for ip in results['events'])
                     else:
                         break
             result[service][country].update(
