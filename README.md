@@ -1,4 +1,4 @@
-## Open databases
+## ShoBEVODST (Shodan and BinaryEdge Based Vulnerable Open Database Scanning Tool)
 
 This project is developed for learning purposes and currently is open-source tool for finding open databases using Shodan and BinaryEdge and trying to download all data from found database
 
